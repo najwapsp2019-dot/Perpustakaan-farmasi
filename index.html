@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perpustakaan Farmasi</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f8f4f7;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #4f0229;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #b13774;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #8e0732;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .intro-text {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .search-box {
+      margin-bottom: 20px;
+      display: flex;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .books {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .book {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(135, 7, 82, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .book:hover {
+      transform: translateY(-5px);
+    }
+
+    .book h3 {
+      margin-top: 0;
+      color: #4f1437;
+    }
+
+    .profile-card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 40px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid #b72b86;
+    }
+
+    footer {
+      background: #79094c;
+      color: rgb(220, 71, 135);
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="Beranda">
+    <h1>📚 Perpustakaan Farmasi</h1>
+    <p>Perpustakaan Mini Khusus Obat-obatan</p>
+  </header>
+        
+  <nav>
+    <a href="#Beranda">Beranda</a>
+    <a href="#Kategori">Kategori</a>
+    <a href="#Pustakawan">Pustakawan</a>
+  </nav>
+
+  <main class="container">
+    <section class="intro-text">
+      <p>Perpustakaan farmasi bukan sekadar deretan rak buku; ia adalah jantung dari riset dan inovasi medis. Sebagai pusat sumber belajar khusus, perpustakaan ini menawarkan ekosistem informasi yang dirancang untuk mendukung akurasi dan perkembangan ilmu kesehatan.</p>
+    </section>
+
+    <section id="Kategori">
+      <h2>Koleksi Buku</h2>
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Cari judul buku atau penulis..." />
+      </div>
+      <div class="books" id="bookList"></div>
+    </section>
+
+    <section id="Pustakawan" class="profile-card">
+      <h2>Profil Pustakawan</h2>
+      <img src="gambar/gambar profil.jpg" alt="Foto Profil" class="profile-img" onerror="this.src='https://via.placeholder.com/150'">
+      <h3>Sabina Aulia Najwa</h3>
+      <p>Saya merupakan mahasiswa S1 Program Studi Ilmu Perpustakaan dan Informasi Islam, Fakultas Adab dan Humaniora, Universitas Islam Negeri Imam Bonjol Padang.</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Perpustakaan Farmasi - Sabina Aulia Najwa
+  </footer>
+
+  <script>
+    const books = [
+      { title: "Farmakologi Dasar & Klinik", author: "Bertram G. Katzung", year: 2005 },
+      { title: "Pharmacotherapy: A Pathophysiologic Approach", author: "Joseph T. DiPiro, dkk", year: 2019 },
+      { title: "Rang & Dale’s Pharmacology", author: "James Ritter, dkk", year: 2012 },
+      { title: "Ilmu Meracik Obat (Teori dan Praktik)", author: "Moh. Anief", year: 2010 },
+      { title: "Ansel's Pharmaceutical Dosage Forms and Drug Delivery Systems", author: "Loyd V. Allen, Jr", year: 1990 }
+    ];
+
+    const bookList = document.getElementById("bookList");
+    const searchInput = document.getElementById("search");
+
+    function displayBooks(data) {
+      bookList.innerHTML = "";
+      if (data.length === 0) {
+        bookList.innerHTML = "<p>Buku tidak ditemukan.</p>";
+        return;
+      }
+      data.forEach(book => {
+        const div = document.createElement("div");
+        div.className = "book";
+        div.innerHTML = `
+          <h3>${book.title}</h3>
+          <p><strong>Penulis:</strong> ${book.author}</p>
+          <p><strong>Tahun:</strong> ${book.year}</p>
+        `;
+        bookList.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const keyword = searchInput.value.toLowerCase();
+      const filtered = books.filter(book =>
+        book.title.toLowerCase().includes(keyword) ||
+        book.author.toLowerCase().includes(keyword)
+      );
+      displayBooks(filtered);
+    });
+
+    // Inisialisasi tampilan pertama kali
+    displayBooks(books);
+  </script>
+
+</body>
+</html>
